@@ -76,17 +76,19 @@ WSGI_APPLICATION = 'DrawDream.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# 远程服务器user:develop，password:sunnylu
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'draw_dream',
-        'USER':'develop',
-        'PASSWORD':'sunnylu',
-        'HOST':'115.159.40.239',
-        'PORT':'3306',
+        'USER': 'root',
+        'PASSWORD': '135569',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
+
 
 
 # Password validation
