@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '121.42.200.55',
+    '127.0.0.1',
     'www.sunnylu.me',
 ]
 
