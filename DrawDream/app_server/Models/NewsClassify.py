@@ -3,7 +3,7 @@ import uuid
 
 
 class NewsClassify(models.Model):
-    necl_id = models.UUIDField(primary_key=True,  default=uuid.uuid4, editable=False)
+    necl_id = models.UUIDField(primary_key=True,  default=uuid.uuid1, max_length=36, editable=False)
     necl_name = models.CharField(max_length=64, unique=True)
     necl_create_date = models.DateField(auto_now_add=True)
 

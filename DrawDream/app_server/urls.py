@@ -1,4 +1,4 @@
-"""DrawDream URL Configuration
+"""FirstTest URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -13,10 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.contrib import admin
+from django.conf.urls import url
+from . import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^server/', include('app_server.urls', namespace='server'))
+    url(r'^login/$', views.login),
+    # url(r'^article/(?P<article_id>[0-9]+)$', views.article_page, name='article_page'),
+    # url(r'^edit/(?P<article_id>[0-9]+)$', views.edit_page, name='edit_page'),
+    # url(r'^edit/action/$', views.edit_action, name='edit_action'),
 ]
+
