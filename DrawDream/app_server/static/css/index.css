@@ -1,0 +1,142 @@
+.banner {
+    height: 290px;
+    margin: 3px auto;
+    width: 100%;
+    background: url("/static/images/timg.jpg") -100px 0;
+    font-size: 16px;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+}
+
+.texts {
+    line-height: 36px;
+    padding: 90px 0 0 40px;
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.texts p {
+    color: rgba(46, 46, 46, 0.74);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    -webkit-transform: translate(60px);
+    -moz-transform: translate(60px);
+    -o-transform: translate(60px);
+    -ms-transform: translate(60px);
+    transform: translate(60px);
+}
+
+.texts p:hover {
+    padding-left: 20px
+}
+
+.texts p:nth-child(1) {
+    -webkit-animation: animations 3s ease-out 1s backwards;
+    -moz-animation: animations 3s ease-out 1s backwards;
+    -o-animation: animations 3s ease-out 1s backwards;
+    -ms-animation: animations 3s ease-out 1s backwards;
+    animation: animations 3s ease-out 1s backwards;
+}
+
+.texts p:nth-child(2) {
+    -webkit-animation: animations 3s ease-out 4s backwards;
+    -moz-animation: animations 3s ease-out 4s backwards;
+    -o-animation: animations 3s ease-out 4s backwards;
+    -ms-animation: animations 3s ease-out 4s backwards;
+    animation: animations 3s ease-out 4s backwards;
+}
+
+.arts {
+    padding: 0 2% 20px 2%;
+    border-bottom: solid #c1b6b0 1px;
+}
+
+.arts > h1 {
+    margin: 0 0 15px 0;
+    color: #404040;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.arts > p.abstract {
+    font-size: 0.9em;
+    color: #666666;
+    margin: 0 0 15px 10px;
+}
+
+.arts > p.artinfo {
+    float: right;
+    color: #666;
+    font-size: 12px;
+}
+
+/* 右侧栏个人档案 */
+.avatar {
+    margin: 10px auto;
+    width: 160px;
+    height: 160px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.avatar a {
+    display: block;
+    margin-top: 0;
+    padding-top: 100px;
+    width: 160px;
+    background: url("/static/images/photos.jpg") no-repeat;
+    background-size: 160px 160px;
+}
+
+.avatar a span {
+    display: block;
+    margin-top: 63px;
+    padding-top: 8px;
+    width: 160px;
+    height: 55px;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    background: rgba(0, 0, 0, .5);
+    -webkit-transition: margin-top .2s ease-in-out;
+    -moz-transition: margin-top .2s ease-in-out;
+    -o-transition: margin-top .2s ease-in-out;
+    transition: margin-top .2s ease-in-out;
+}
+
+.avatar a:hover span {
+    display: block;
+    margin-top: 0;
+}
+
+.topspaceinfo {
+    background: rgba(31, 71, 44, 0.5);
+    padding: 40px 20px;
+    color: #fff;
+    text-shadow: 1px 1px rgba(0, 0, 0, .3);
+    font-size: 16px;
+}
+
+.topspaceinfo > h1 {
+    font-size: 20px;
+}
+
+.topspaceinfo > p {
+    font-size: 12px;
+}
+
+.about_c {
+    margin: 10px 0;
+    color: #fff;
+    line-height: 26px;
+}
+
+.about_c p {
+    display: block;
+    padding-left: 20px;
+    font-size: 13px;
+}
+
+.about_c p:hover {
+    background: rgba(0, 0, 0, 0.5)
+}

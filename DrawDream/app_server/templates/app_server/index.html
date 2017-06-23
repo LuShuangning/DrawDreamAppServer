@@ -1,0 +1,15 @@
+{% extends "app_server/base.html" %}
+
+{% block content %}
+    <div id="result">
+        {% for ech in json %}
+            {{ ech }}
+            <br>
+        {% endfor %}
+
+    </div>
+    <script>
+        console.log(JSON.stringify("{{ json }}", null, 4))
+    </script>
+
+{% endblock %}

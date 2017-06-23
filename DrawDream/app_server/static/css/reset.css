@@ -1,0 +1,171 @@
+@charset "utf-8";
+/* 共用css */
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    font: 13px "楷体", Arial, Helvetica, sans-serif;
+    background: #f5f5f5
+}
+
+img {
+    border: 0;
+    display: block
+}
+
+ul {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+select, a {
+    outline: none;
+}
+
+input[type = "text"] {
+    border: 1px solid #C3CED9;
+    border-radius: 5px 5px 5px 5px;
+    font-size: 14px;
+    height: 31px;
+    line-height: 31px;
+    margin-right: 10px;
+    padding: 0;
+    width: 370px;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.clear {
+    clear: both;
+}
+
+.blank {
+    height: 5px;
+    overflow: hidden;
+    width: 100%;
+    margin: auto;
+    clear: both
+}
+
+.btn {
+    height: 35px;
+    background-color: #9AB8F3;
+    color: #FFF;
+    border-radius: 5px;
+    width: 60px;
+    border: 1px solid #f5f5f5;
+
+}
+
+.btn:hover {
+    cursor: pointer;
+    border-color: rgba(9, 217, 214, 0.75);
+    background-color: #605af6
+}
+
+/* 头部信息 */
+.ibody {
+    width: 1000px;
+    margin: auto;
+    box-shadow: -2px -1px 5px #666;
+}
+
+header {
+    position: relative;
+    background: url("/static/images/bg.jpg");
+}
+
+header h1 {
+    padding: 15px 0 0 60px;
+    font-size: 24px;
+    font-family: "华文行楷", Helvetica, Arial, sans-serif;
+}
+
+header h2 {
+    margin: 20px 80px;
+    color: #8e8d8d;
+}
+
+/* logo */
+
+/* 导航 */
+nav {
+    /*background: #1f472c;*/
+    height: 48px;
+    width: 920px;
+    line-height: 48px;
+    padding: 0 40px;
+}
+
+/* 兼容IE6 透明 */
+nav a {
+    display: inline-block;
+    font-size: 18px;
+    font-family: "华文行楷", Arial, Helvetica, sans-serif;
+    color: #FFF;
+    padding: 0 20px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+
+nav a:hover {
+    color: #5e763a
+}
+
+#topnav_current {
+    color: #5e763a
+}
+
+/* 高亮选中颜色 */
+article {
+    width: calc(73% - 2px);
+    float: left;
+    margin-right: 2px
+}
+
+/* 左侧栏 */
+aside {
+    width: 27%;
+    background: #c4c4c4;
+    float: right;
+}
+
+/* 右侧栏 */
+footer {
+    background: #8e8d8d;
+    height: 60px;
+}
+
+/* 版权信息 */
+.copyright {
+    text-align: center;
+    color: #d8d8d8;
+    padding-top: 20px;
+}
+
+.copyright p {
+    line-height: 26px;
+    text-shadow: #367026 1px 1px 1px
+}
+
+.copyright p a {
+    color: #d8d8d8;
+}
+
+.midware {
+    padding: 0 calc(50% - 160px);
+}

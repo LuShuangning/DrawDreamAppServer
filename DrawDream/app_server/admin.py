@@ -10,5 +10,8 @@ from app_server.Models.CommentReplay import CommentReplay
 
 admin.site.register(NewsClassify)
 admin.site.register(NewsDetail)
+admin.site.register(CommentReplay)
+admin.site.register(UserCollect)
+admin.site.register(UserInfo)
 admin.site.register(Account)
 

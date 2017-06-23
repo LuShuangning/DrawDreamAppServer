@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     '121.42.200.55',
     '127.0.0.1',
     'www.sunnylu.me',
+    'localhost',
 ]
 
 
@@ -84,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'draw_dream',
         'USER': 'root',
-        'PASSWORD': '135569',
+        'PASSWORD': 'w1y21995.8.30',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

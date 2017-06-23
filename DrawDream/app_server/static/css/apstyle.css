@@ -1,0 +1,15 @@
+.article_info{
+    margin: 10px;
+}
+.page_article_title{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 800;
+    padding-top: 10px;
+}
+.articleDesc{
+    font-size: 14px;
+    color: #777;
+    line-height: 200%;
+    margin: 10px auto;
+}

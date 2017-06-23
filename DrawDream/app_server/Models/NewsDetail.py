@@ -1,11 +1,14 @@
-from django.db import models
 import uuid
+
+from django.db import models
 
 
 class NewsDetail(models.Model):
     nede_id = models.UUIDField(primary_key=True, default=uuid.uuid1, max_length=36, editable=False)
     # nede_classify = models.ForeignKey(NewsClassify, to_field='necl_name')
-    nede_classify = models.CharField(max_length=64, unique=True)
+    nede_classify = models.ForeignKey('NewsClassify',
+                                      null=True,
+                                      on_delete=models.SET_NULL, to_field='necl_name')
     # 创建该条数据时的系统时间
     nede_create_date = models.DateField(auto_now_add=True)
     nede_title = models.CharField(max_length=128)
