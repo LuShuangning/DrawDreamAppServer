@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '121.42.200.55',
     '127.0.0.1',
+    '10.0.3.2',
     'www.sunnylu.me',
     'localhost',
 ]
@@ -49,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -85,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'draw_dream',
         'USER': 'root',
-        'PASSWORD': 'w1y21995.8.30',
+        'PASSWORD': '135569',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

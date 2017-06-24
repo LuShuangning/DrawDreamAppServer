@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from app_server.ModelForm.LoginRegistFrom import LoginFrom, RegistFrom
 from .models import *
+import simplejson
 
 
 # 返回指定数据
@@ -14,6 +15,20 @@ def index(request, op):
     data = swichdata(request, op)
     json = model2json(data)
     return HttpResponse(json, content_type="application/json; charset=utf-8")
+
+
+def test(request):
+    test_dict = {}
+    if request.method == 'POST':
+        req = simplejson.loads(request.body)
+        pwd = req['pwd']
+        account = req['account']
+        test_dict['pwd'] = pwd
+        test_dict['account'] = account
+
+    test_json = simplejson.dumps(test_dict)
+    print(test_json)
+    return HttpResponse(test_json, content_type="application/json; charset=utf-8")
 
 
 # 登录
@@ -35,6 +50,8 @@ def login(request):
     else:
         uf = LoginFrom()
     return render(request, 'app_server/login.html', {'uf': uf, "lf": lf})
+
+    # return render(request, 'app_server/login.html')
 
 
 # 注册
