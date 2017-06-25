@@ -19,15 +19,41 @@ def index(request, op):
 
 def test(request):
     test_dict = {}
+    res_dict = {}
+    user_data = {}
+
     if request.method == 'POST':
         req = simplejson.loads(request.body)
         pwd = req['pwd']
         account = req['account']
         test_dict['pwd'] = pwd
         test_dict['account'] = account
-
     test_json = simplejson.dumps(test_dict)
-    print(test_json)
+    print('已获取json\n' + test_json)
+
+    res_dict['msg'] = '信息已受理'
+    res_dict['success'] = 'true'
+    user_data['id'] = 1234567
+    user_data['user_name'] = 'lusn'
+    user_data['user_id'] = '778945661234'
+    user_data['user_gender'] = '男'
+    user_data['user_phone'] = '18702807538'
+    user_data['user_email'] = 'sdyglsn@126.com'
+    user_data['user_sign'] = '????'
+    res_dict['data'] = user_data
+    res_json = simplejson.dumps(res_dict).encode('utf-8').decode('unicode-escape')
+    print(res_json)
+    return HttpResponse(res_json, content_type="application/json; charset=utf-8")
+
+
+def result(request):
+    test_dict = {}
+
+    req = simplejson.loads(request.body)
+    classify = req['classify']
+    test_dict['classify'] = classify
+    test_json = simplejson.dumps(test_dict).encode('utf-8').decode('unicode-escape')
+    print('已获取json\n' + test_json)
     return HttpResponse(test_json, content_type="application/json; charset=utf-8")
 
 
