@@ -11,6 +11,8 @@ class NewsDetail(models.Model):
                                       on_delete=models.SET_NULL, to_field='necl_name')
     # 创建该条数据时的系统时间
     nede_create_date = models.DateField(auto_now_add=True)
+    # 封面图片
+    nede_cover_img = models.URLField(default="")
     nede_title = models.CharField(max_length=128)
     nede_author = models.CharField(max_length=64, default="佚名")
     # 爬取的文章上的时间，不是爬取文章存进数据库的时间，所以用CharField

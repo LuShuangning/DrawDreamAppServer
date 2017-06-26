@@ -18,5 +18,6 @@ class CrawlappItem(scrapy.Item):
     author = scrapy.Field()
     web_time = scrapy.Field()
     content = scrapy.Field()
+    cover_img = scrapy.Field()
     # browse = scrapy.Field()
     # love = scrapy.Field()
