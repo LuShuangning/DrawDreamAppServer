@@ -17,35 +17,6 @@ def index(request, op):
     return HttpResponse(json, content_type="application/json; charset=utf-8")
 
 
-def test(request):
-    test_dict = {}
-    res_dict = {}
-    user_data = {}
-
-    if request.method == 'POST':
-        req = simplejson.loads(request.body)
-        pwd = req['pwd']
-        account = req['account']
-        test_dict['pwd'] = pwd
-        test_dict['account'] = account
-    test_json = simplejson.dumps(test_dict)
-    print('已获取json\n' + test_json)
-
-    res_dict['msg'] = '信息已受理'
-    res_dict['success'] = 'true'
-    user_data['id'] = 1234567
-    user_data['user_name'] = 'lusn'
-    user_data['user_id'] = '778945661234'
-    user_data['user_gender'] = '男'
-    user_data['user_phone'] = '18702807538'
-    user_data['user_email'] = 'sdyglsn@126.com'
-    user_data['user_sign'] = '????'
-    res_dict['data'] = user_data
-    res_json = simplejson.dumps(res_dict).encode('utf-8').decode('unicode-escape')
-    print(res_json)
-    return HttpResponse(res_json, content_type="application/json; charset=utf-8")
-
-
 def result(request):
     test_dict = {}
 
@@ -57,25 +28,59 @@ def result(request):
     return HttpResponse(test_json, content_type="application/json; charset=utf-8")
 
 
-# 登录
 def login(request):
-    lf = RegistFrom()
+    res = {}
+    user_data = {}
     if request.method == 'POST':
-        uf = LoginFrom(request.POST)
-        if uf.is_valid():
-            # 获取表单用户密码
-            username = uf.cleaned_data['username']
-            password = uf.cleaned_data['password']
-            # 获取的表单数据与数据库进行比较
-            print(username, password)
-            user = Account.objects.filter(acco_num=username, acco_pwd=password)
-            if user:
-                return HttpResponseRedirect(request.POST.get('server', '/') or '/')
-            else:
-                return HttpResponseRedirect('/server/login/', status=302)
-    else:
-        uf = LoginFrom()
-    return render(request, 'app_server/login.html', {'uf': uf, "lf": lf})
+        # 获取POST数据
+        req = simplejson.loads(request.body)
+        account = req['account']
+        pwd = req['pwd']
+        # 查询符合的记录
+        user = Account.objects.get(acco_num=account, acco_pwd=pwd)
+        print(str(user))
+        if user:
+            res['msg'] = '200'
+            res['success'] = 'true'
+            info = UserInfo.objects.get(usin_id=user.acco_id)
+            user_data['id'] = 1
+            user_data['user_id'] = str(info.usin_id_id)
+            user_data['user_name'] = info.usin_name
+            user_data['user_gender'] = str(info.usin_sex)
+            user_data['user_phone'] = info.usin_phone
+            user_data['user_email'] = info.usin_email
+            user_data['user_sign'] = info.usin_sign
+            res['data'] = user_data
+            res_json = simplejson.dumps(res)
+            print(res_json.encode('utf-8').decode('unicode-escape'))
+        # 若记录不存在
+        else:
+            res['msg'] = '302'
+            res['success'] = 'false'
+            res['data'] = user_data
+            res_json = simplejson.dumps(res).encode('utf-8').decode('unicode-escape')
+            print(res_json)
+    return HttpResponse(res_json, content_type="application/json; charset=utf-8")
+
+# 登录
+# def login(request):
+#     lf = RegistFrom()
+#     if request.method == 'POST':
+#         uf = LoginFrom(request.POST)
+#         if uf.is_valid():
+#             # 获取表单用户密码
+#             username = uf.cleaned_data['username']
+#             password = uf.cleaned_data['password']
+#             # 获取的表单数据与数据库进行比较
+#             print(username, password)
+#             user = Account.objects.filter(acco_num=username, acco_pwd=password)
+#             if user:
+#                 return HttpResponseRedirect(request.POST.get('server', '/') or '/')
+#             else:
+#                 return HttpResponseRedirect('/server/login/', status=302)
+#     else:
+#         uf = LoginFrom()
+#     return render(request, 'app_server/login.html', {'uf': uf, "lf": lf})
 
     # return render(request, 'app_server/login.html')
 

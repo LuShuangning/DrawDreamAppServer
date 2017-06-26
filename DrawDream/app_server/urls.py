@@ -22,7 +22,6 @@ urlpatterns = [
     url(r'^index/op=(?P<op>[A-z]+)$', views.index),
     url(r'^login/$', views.login),
     url(r'^signup/$', views.signup),
-    url(r'^test/$', views.test),
     url(r'^classify/result/$', views.result),
     url(r'^$', RedirectView.as_view(url='index/op=Account')),
 
