@@ -1,23 +1,25 @@
 # -*- coding: utf-8 -*-
 
+import codecs
+import json
+
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymysql
-import codecs
-import json
 
 
 class CrawlappPipeline(object):
-    def __init__(self):
+    # def __init__(self):
         # self.file = open('data.json', 'wb')
-        self.file = codecs.open(
-            'guoman.txt', 'w', encoding='utf-8')
+        # self.file = codecs.open(
+        #     'guoman.txt', 'w', encoding='utf-8')
 
     def process_item(self, item, spider):
-        line = json.dumps(dict(item), ensure_ascii=False) + "\n"
-        self.file.write(line)
+        file = codecs.open(str(item['title']), 'w', encoding='utf-8')
+        line = json.dumps(dict(item['content']), ensure_ascii=False) + "\n"
+        file.write(line)
         return item
 
     def spider_closed(self, spider):
