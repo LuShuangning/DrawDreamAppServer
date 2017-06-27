@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     '10.0.3.2',
     'www.sunnylu.me',
     'localhost',
+    '*',
 ]
 
 

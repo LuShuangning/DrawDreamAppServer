@@ -24,7 +24,7 @@ from .models import *
 @csrf_exempt
 def index(request):
     res = {}
-    # req = json.loads(request.body)
+    req = json.loads(request.body)
     res_list = NewsDetail.objects.all()
 
     _json = model2json(res_list)
@@ -62,17 +62,17 @@ def login(request):
             res['msg'] = '200'
             res['success'] = 'true'
             info = UserInfo.objects.get(usin_id=user.acco_id)
-            # user_data['id'] = 1
-            # user_data['user_id'] = str(info.usin_id_id)
-            # user_data['user_name'] = info.usin_name
-            # user_data['user_gender'] = str(info.usin_sex)
-            # user_data['user_phone'] = info.usin_phone
-            # user_data['user_email'] = info.usin_email
-            # user_data['user_sign'] = info.usin_sign
-            user_data = model2json(info)
+            user_data['id'] = 1
+            user_data['user_id'] = str(info.usin_id_id)
+            user_data['user_name'] = info.usin_name
+            user_data['user_gender'] = str(info.usin_sex)
+            user_data['user_phone'] = info.usin_phone
+            user_data['user_email'] = info.usin_email
+            user_data['user_sign'] = info.usin_sign
+            # user_data = model2json(info)
             res['data'] = user_data
             res_json = json.dumps(res, ensure_ascii=False, default=__default).encode("utf-8")
-            print(res_json.encode('utf-8').decode('unicode-escape'))
+            print(res_json)
         # 若记录不存在
         else:
             res['msg'] = '302'
