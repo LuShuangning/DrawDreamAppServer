@@ -19,8 +19,9 @@ from django.views.generic import RedirectView
 from . import views
 
 urlpatterns = [
-    url(r'^index/op=(?P<op>[A-z]+)$', views.index),
+    # url(r'^index/op=(?P<op>[A-z]+)$', views.index),
     url(r'^login/$', views.login),
+    url(r'^index/$', views.index),
     url(r'^signup/$', views.signup),
     url(r'^classify/result/$', views.result),
     url(r'^$', RedirectView.as_view(url='index/op=Account')),
