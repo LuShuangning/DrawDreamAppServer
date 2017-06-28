@@ -26,10 +26,8 @@ SECRET_KEY = 'kq5@exs_u&4e4o9g13-6k6pt3av%r#=3b#a@_!awi%5oy(hhgj'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '121.42.200.55',
     '127.0.0.1',
     '10.0.3.2',
-    'www.sunnylu.me',
     'localhost',
     '*',
 ]
@@ -88,7 +86,7 @@ DATABASES = {
         'NAME': 'draw_dream',
         'USER': 'root',
         'PASSWORD': '135569',
-        'HOST': '127.0.0.1',
+        'HOST': '115.159.40.239',
         'PORT': '3306',
     }
 }

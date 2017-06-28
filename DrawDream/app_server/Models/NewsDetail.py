@@ -17,7 +17,7 @@ class NewsDetail(models.Model):
     nede_author = models.CharField(max_length=64, default="佚名")
     # 爬取的文章上的时间，不是爬取文章存进数据库的时间，所以用CharField
     nede_web_time = models.CharField(max_length=32, null=True)
-    nede_content = models.TextField()
+    nede_content = models.URLField(default="")
     # 阅读次数
     nede_browse = models.IntegerField(default=0)
     # 被喜欢的次数

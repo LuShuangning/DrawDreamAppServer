@@ -25,11 +25,17 @@ from .models import *
 def index(request):
     res = {}
     req = json.loads(request.body)
+    if req:
+        print("已获取POST请求")
     res_list = NewsDetail.objects.all()
+    if res_list.count() == 0:
+        res['msg'] = '404'
+        res['success'] = 'false'
+    else:
+        res['msg'] = '200'
+        res['success'] = 'true'
 
     _json = model2json(res_list)
-    res['msg'] = ''
-    res['success'] = 'true'
     res['data'] = _json
     # res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')
     res_json = json.dumps(res, ensure_ascii=False, default=__default).encode("utf-8")
@@ -42,6 +48,7 @@ def result(request):
     req = json.loads(request.body)
     classify = req['classify']
     test_dict['classify'] = classify
+
     test_json = simplejson.dumps(test_dict).encode('utf-8').decode('unicode-escape')
     print('已获取json\n' + test_json)
     return HttpResponse(test_json, content_type="application/json; charset=utf-8")
@@ -75,7 +82,7 @@ def login(request):
             print(res_json)
         # 若记录不存在
         else:
-            res['msg'] = '302'
+            res['msg'] = '404'
             res['success'] = 'false'
             res['data'] = user_data
             res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')

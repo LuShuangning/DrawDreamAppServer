@@ -17,14 +17,14 @@ class CrawlappPipeline(object):
 
     def process_item(self, item, spider):
         # write content in local file
-        # file = codecs.open(str('/home/file_server/file/'
-        #                        + item['title'][0:10] + '.html'), 'w', encoding='utf-8')
-        file = codecs.open(str('/home/sunnylu/Documents/scrapy/'
+        file = codecs.open(str('/home/file_server/file/'
                                + item['title'][0:10] + '.html'), 'w', encoding='utf-8')
+        # file = codecs.open(str('/home/sunnylu/Documents/scrapy/'
+        #                        + item['title'][0:10] + '.html'), 'w', encoding='utf-8')
         try:
 
             line = json.dumps(item['content'], ensure_ascii=False)[2:-2] + "\n"
-            print('*********************************************' + str(item['cover_img']))
+            # print('*********************************************' + str(item['cover_img']))
             file.write(line)
         finally:
             file.close()
@@ -53,8 +53,10 @@ class StorePipeline(object):
             cursorclass=pymysql.cursors.DictCursor)
 
         sql = """INSERT INTO news_detail 
-(nede_id, nede_classify_id, nede_title, nede_author, nede_web_time, nede_content, nede_create_date, nede_cover_img) 
-VALUES(%s, %s, %s, %s, %s, %s, %s) """
+(nede_id, nede_classify_id, nede_title, 
+nede_author, nede_web_time, nede_content, 
+nede_create_date, nede_cover_img, nede_browse, nede_love) 
+VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) """
 
         try:
             with connection.cursor() as cursor:
@@ -64,9 +66,11 @@ VALUES(%s, %s, %s, %s, %s, %s, %s) """
                     item['title'],
                     item['author'],
                     item['web_time'],
-                    item['content_url'],
+                    item['content_url'] + '.html',
                     item['create_date'],
                     item['cover_img'],
+                    0,
+                    0
                 )
                                     )
                 connection.commit()

@@ -23,7 +23,7 @@ class GuomanSpider(scrapy.Spider):
     def parse_detail(self, response):
         item = response.meta['item']
         create_date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-        classify = '国漫'
+        classify = '国产动漫'
 
         # uuid转换去掉'-'
         def uuid_without():
