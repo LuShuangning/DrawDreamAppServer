@@ -12,18 +12,31 @@ import pymysql
 
 class CrawlappPipeline(object):
     # def __init__(self):
-        # self.file = open('data.json', 'wb')
-        # self.file = codecs.open(
-        #     'guoman.txt', 'w', encoding='utf-8')
+    #     self.file = codecs.open(
+    #         'guoman.txt', 'w', encoding='utf-8')
 
     def process_item(self, item, spider):
-        file = codecs.open(str(item['title']), 'w', encoding='utf-8')
-        line = json.dumps(dict(item['content']), ensure_ascii=False) + "\n"
-        file.write(line)
+        # write content in local file
+        # file = codecs.open(str('/home/file_server/file/'
+        #                        + item['title'][0:10] + '.html'), 'w', encoding='utf-8')
+        file = codecs.open(str('/home/sunnylu/Documents/scrapy/'
+                               + item['title'][0:10] + '.html'), 'w', encoding='utf-8')
+        try:
+
+            line = json.dumps(item['content'], ensure_ascii=False)[2:-2] + "\n"
+            print('*********************************************' + str(item['cover_img']))
+            file.write(line)
+        finally:
+            file.close()
         return item
 
-    def spider_closed(self, spider):
-        self.file.close()
+    # def process_item(self, item, spider):
+    #     line = json.dumps(dict(item), ensure_ascii=False) + "\n"
+    #     self.file.write(line)
+    #     return item
+    #
+    # def spider_closed(self, spider):
+    #     self.file.close()
 
 
 class StorePipeline(object):
@@ -40,7 +53,7 @@ class StorePipeline(object):
             cursorclass=pymysql.cursors.DictCursor)
 
         sql = """INSERT INTO news_detail 
-(nede_id, nede_classify, nede_title, nede_author, nede_web_time, nede_content, nede_create_date) 
+(nede_id, nede_classify_id, nede_title, nede_author, nede_web_time, nede_content, nede_create_date, nede_cover_img) 
 VALUES(%s, %s, %s, %s, %s, %s, %s) """
 
         try:
@@ -51,8 +64,9 @@ VALUES(%s, %s, %s, %s, %s, %s, %s) """
                     item['title'],
                     item['author'],
                     item['web_time'],
-                    item['content'],
+                    item['content_url'],
                     item['create_date'],
+                    item['cover_img'],
                 )
                                     )
                 connection.commit()

@@ -43,7 +43,9 @@ class GuomanSpider(scrapy.Spider):
         item['title'] = extract_with_css('div.ui-rt-border h1.artical-title::text')
         item['author'] = extract_with_css('div.author span.atr::text')[3:]
         item['web_time'] = extract_with_css('div.author span.time::text')
-        item['content'] = extract_with_css('div.artical-content p::text')
+        item['content'] = response.css('div.artical-content').extract()
+        # item['content_url'] = 'http://115.159.40.239/file/' + item['title'][0:10]
+        item['content_url'] = 'http://115.159.40.239/file/' + item['title'][0:10]
         # item['browse'] = 0
         # item['love'] = 0
         # print(item)
