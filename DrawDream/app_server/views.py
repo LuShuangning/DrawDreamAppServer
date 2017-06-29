@@ -172,27 +172,44 @@ def user_info(request):
     return HttpResponse(res_json, content_type="application/json; charset=utf-8")
 
 
-# def comment(request):
-#     res = {}
-#     # 获取POST数据
-#     req = simplejson.loads(request.body)
-#     core_nede_id = req['news_id']
-#     try:
-#         comment_list = CommentReplay.objects.filter(core_nede_id_id=core_nede_id)
-#         # _json = model2json(comment_list)
-#         for i in comment_list:
-#             UserInfo.objects.get(usin_id_id=i.core_acco_id_id)
-#
-#
-#         res['data'] = _json
-#     except:
-#         res['msg'] = '302'
-#         res['success'] = 'false'
-#         res['data'] = ''
-#     finally:
-#         res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')
-#
-#     return HttpResponse(res_json, content_type="application/json; charset=utf-8")
+def comment(request):
+    res = {}
+    comment = []
+    # 获取POST数据
+    # req = simplejson.loads(request.body)
+    # core_nede_id = req['news_id']
+    core_nede_id = '068cf57b92f846bc9204fed56f30b8e8'
+    try:
+        comment_list = CommentReplay.objects.filter(core_nede_id_id=core_nede_id)
+        # _json = model2json(comment_list)
+        # 最笨的方法，在循环里面再写查询，先把自己鄙视一番
+        for m in comment_list:
+            comment_data = {}
+            n = UserInfo.objects.get(usin_id_id=m.core_acco_id_id)
+            comment_data['content'] = m.core_content
+            comment_data['name'] = n.usin_name
+            comment_data['core_date'] = str(m.core_date)
+            comment_data['id'] = str(m.id)
+            comment.append(comment_data)
+    # 若评论为空
+    except CommentReplay.DoesNotExist:
+        res['msg'] = '302'
+        res['success'] = 'false'
+        res['data'] = ''
+    finally:
+        res['data'] = comment
+        res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')
+
+    return HttpResponse(res_json, content_type="application/json; charset=utf-8")
+
+
+def deliver_comment(request):
+    res = {}
+    content = res['content']
+    user_id = res['user_id']
+    news_id = res['news_id']
+    CommentReplay(core_acco_id_id=user_id, core_nede_id_id=news_id, core_content=content)
+
 
 
 def model2json(data):
