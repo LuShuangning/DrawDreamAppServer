@@ -22,7 +22,9 @@ urlpatterns = [
     # url(r'^index/op=(?P<op>[A-z]+)$', views.index),
     url(r'^login/$', views.login),
     url(r'^index/$', views.index),
-    url(r'^signup/$', views.signup),
+    url(r'^user_info/$', views.user_info),
+    url(r'^comment/$', views.comment),
+    # url(r'^signup/$', views.signup),
     url(r'^classify/result/$', views.result),
     url(r'^$', RedirectView.as_view(url='index/op=Account')),
 

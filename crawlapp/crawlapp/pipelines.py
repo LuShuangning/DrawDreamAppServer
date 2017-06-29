@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import codecs
-import json
+import simplejson
 
 # Define your item pipelines here
 #
@@ -23,7 +23,7 @@ class CrawlappPipeline(object):
         #                        + item['title'][0:10] + '.html'), 'w', encoding='utf-8')
         try:
 
-            line = json.dumps(item['content'], ensure_ascii=False)[2:-2] + "\n"
+            line = simplejson.dumps(item['content'], ensure_ascii=False).replace('\\n', '')[2:-2]
             # print('*********************************************' + str(item['cover_img']))
             file.write(line)
         finally:

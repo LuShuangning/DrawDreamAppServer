@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'draw_dream',
-        'USER': 'root',
-        'PASSWORD': '135569',
+        'USER': 'develop',
+        'PASSWORD': 'sunnylu',
         'HOST': '115.159.40.239',
         'PORT': '3306',
     }

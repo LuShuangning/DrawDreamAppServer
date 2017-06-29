@@ -63,30 +63,35 @@ def login(request):
         account = req['account']
         pwd = req['pwd']
         # 查询符合的记录
-        user = Account.objects.get(acco_num=account, acco_pwd=pwd)
-        print(str(user))
-        if user:
-            res['msg'] = '200'
-            res['success'] = 'true'
-            info = UserInfo.objects.get(usin_id=user.acco_id)
-            user_data['id'] = 1
-            user_data['user_id'] = str(info.usin_id_id)
-            user_data['user_name'] = info.usin_name
-            user_data['user_gender'] = str(info.usin_sex)
-            user_data['user_phone'] = info.usin_phone
-            user_data['user_email'] = info.usin_email
-            user_data['user_sign'] = info.usin_sign
-            # user_data = model2json(info)
-            res['data'] = user_data
-            res_json = json.dumps(res, ensure_ascii=False, default=__default).encode("utf-8")
-            print(res_json)
-        # 若记录不存在
-        else:
+        try:
+            user = Account.objects.get(acco_num=account)
+            if user.acco_pwd == pwd:
+                print(str(user))
+                res['msg'] = '200'
+                res['success'] = 'true'
+                info = UserInfo.objects.get(usin_id=user.acco_id)
+                user_data['user_id'] = str(info.usin_id_id)
+                user_data['user_name'] = info.usin_name
+                user_data['user_gender'] = str(info.usin_sex)
+                user_data['user_phone'] = info.usin_phone
+                user_data['user_email'] = info.usin_email
+                user_data['user_sign'] = info.usin_sign
+                # user_data = model2json(info)
+                res['data'] = user_data
+            # 密码错误
+            else:
+                res['msg'] = '405'
+                res['success'] = 'false'
+                res['data'] = user_data
+        # 用户不存在
+        except Account.DoesNotExist:
             res['msg'] = '404'
             res['success'] = 'false'
             res['data'] = user_data
-            res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')
-            print(res_json)
+
+    res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')
+    print(res_json)
+
     return HttpResponse(res_json, content_type="application/json; charset=utf-8")
 
 # 登录
@@ -113,29 +118,81 @@ def login(request):
 
 
 # 注册
-def signup(request):
-    if request.method == 'POST':
-        lf = RegistFrom(request.POST)
-        if lf.is_valid():
-            # 获取表单用户密码
-            email = lf.cleaned_data['email']
-            username = lf.cleaned_data['username']
-            password = lf.cleaned_data['password']
-            re_password = lf.cleaned_data['re_password']
-            if password != re_password:
-                errors = "两次输入的密码不一致!"
-                return render_to_response('app_server/login.html', {'errors': errors})
-            # 获取的表单数据与数据库进行比较
-            user = Account.objects.create(acco_num=username, acco_pwd=password)
-            user = user.save()
-            if user:
-                return HttpResponseRedirect('/server/login/')
-            else:
-                return HttpResponseRedirect(request.POST.get('server', '/') or '/')
+# def signup(request):
+#     if request.method == 'POST':
+#         lf = RegistFrom(request.POST)
+#         if lf.is_valid():
+#             # 获取表单用户密码
+#             email = lf.cleaned_data['email']
+#             username = lf.cleaned_data['username']
+#             password = lf.cleaned_data['password']
+#             re_password = lf.cleaned_data['re_password']
+#             if password != re_password:
+#                 errors = "两次输入的密码不一致!"
+#                 return render_to_response('app_server/login.html', {'errors': errors})
+#             # 获取的表单数据与数据库进行比较
+#             user = Account.objects.create(acco_num=username, acco_pwd=password)
+#             user = user.save()
+#             if user:
+#                 return HttpResponseRedirect('/server/login/')
+#             else:
+#                 return HttpResponseRedirect(request.POST.get('server', '/') or '/')
+#     else:
+#         uf = LoginFrom()
+#         lf = RegistFrom()
+#     return render(request, 'app_server/login.html', {'uf': uf, "lf": lf})
+
+def user_info(request):
+    res = {}
+    # 获取POST数据
+    req = simplejson.loads(request.body)
+
+    user_id = int(req['user_id'])
+    userInfo = UserInfo.objects.get(usin_id_id=user_id)
+    print(req['user_email'])
+    if req['user_gender']:
+        gender = True
     else:
-        uf = LoginFrom()
-        lf = RegistFrom()
-    return render(request, 'app_server/login.html', {'uf': uf, "lf": lf})
+        gender = False
+    try:
+        userInfo.usin_name = req['user_name']
+        userInfo.usin_sex = gender
+        userInfo.usin_sign = req['user_sign']
+        userInfo.usin_email = req['user_email']
+        userInfo.save()
+
+        res['msg'] = '200'
+        res['success'] = 'true'
+    except:
+        res['msg'] = '302'
+        res['success'] = 'false'
+    finally:
+        res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')
+        print(res_json)
+    return HttpResponse(res_json, content_type="application/json; charset=utf-8")
+
+
+# def comment(request):
+#     res = {}
+#     # 获取POST数据
+#     req = simplejson.loads(request.body)
+#     core_nede_id = req['news_id']
+#     try:
+#         comment_list = CommentReplay.objects.filter(core_nede_id_id=core_nede_id)
+#         # _json = model2json(comment_list)
+#         for i in comment_list:
+#             UserInfo.objects.get(usin_id_id=i.core_acco_id_id)
+#
+#
+#         res['data'] = _json
+#     except:
+#         res['msg'] = '302'
+#         res['success'] = 'false'
+#         res['data'] = ''
+#     finally:
+#         res_json = json.dumps(res).encode('utf-8').decode('unicode-escape')
+#
+#     return HttpResponse(res_json, content_type="application/json; charset=utf-8")
 
 
 def model2json(data):
@@ -161,8 +218,6 @@ def __default(obj):
         return obj.__str__()
     else:
         raise TypeError('%r is not JSON serializable' % obj)
-
-
 
 
 categoryAction = {
