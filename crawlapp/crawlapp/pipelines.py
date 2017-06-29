@@ -24,6 +24,7 @@ class CrawlappPipeline(object):
         try:
 
             line = simplejson.dumps(item['content'], ensure_ascii=False).replace('\\n', '')[2:-2]
+            line = line.replace('\\', '')
             # print('*********************************************' + str(item['cover_img']))
             file.write(line)
         finally:
